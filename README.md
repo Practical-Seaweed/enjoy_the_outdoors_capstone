@@ -4,12 +4,12 @@ In this project, you will build an application that helps a user find things to 
 **Live Demo**  
 - https://enjoy-the-outdoors.netlify.app/
 
-**Relevent Class Resources:**  
+**Relevant Class Resources:**  
 - [Tourist Bureau with tables](https://github.com/erics273/tourist_bureau_workshop_with_tables)
 - [Instructor Demos](https://github.com/erics273/wb5_exercises/tree/main/eric_demos)
 
-**Relevent Bootstrap Links:**
- - [Select Boxes (Drowdowns)](https://getbootstrap.com/docs/5.3/forms/select/)
+**Relevant Bootstrap Links:**
+ - [Select Boxes (Dropdowns)](https://getbootstrap.com/docs/5.3/forms/select/)
  - [Radio Buttons](https://getbootstrap.com/docs/5.3/forms/checks-radios/#radios)
  - [Tables](https://getbootstrap.com/docs/5.3/content/tables/)
  - [Cards](https://getbootstrap.com/docs/5.3/components/card/#kitchen-sink)
@@ -46,7 +46,7 @@ Ultimately, the user would like to have two ways to search for a national park:
 
 One of the challenges will be how the user is presented with two search options populated with the appropriate values. Do you use [radio buttons](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/radio) to select the search type?  Do you use a [dropdown](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/select) with the search types as [options](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/option)?
 
-#### Nationa Parks Search Page Stretch Goals
+#### National Parks Search Page Stretch Goals
 Challenge yourself with some of the stretch goals below. **These stretch goals should be treated as the lowest priority tasks**
 
 - Provide a View All National Parks option.
@@ -103,13 +103,13 @@ Challenge yourself with some of the stretch goals below. **These stretch goals s
 **Implement best practices:**  
 - Have a good directory structures (ex: css, images and scripts folders) 
 - Use good file naming conventions (ex: lowercase file names with no spaces)
-- Have well-formatted HTML, CSS and JavaScript (indentions, blank lines, etc)
+- Have well-formatted HTML, CSS and JavaScript (indentions, blank lines, etc.)
 - Use good names for your HTML elements and JavaScript variables/functions
 - Use HTML, CSS and JavaScript comments effectively
 - Make sure there are no JavaScript errors at run time (check the Console tab in the browser frequently)
 
 **Class Demonstrations**  
-Each student will be given 10 minutes to demostrate their site to the class on "project demonstration day". During this time, you will:  
+Each student will be given 10 minutes to demonstrate their site to the class on "project demonstration day". During this time, you will:  
 
 - Show off your website and the pages within it 
 - Describe/show one interesting piece of HTML/CSS Bootstrap you wrote
