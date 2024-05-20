@@ -3,17 +3,17 @@
 window.onload = () => {
     initLocationDropdown();
     initTypeDropdown();
-/*  MDN said to use .querySelectorAll to select all the radio buttons with the name searchType  */
+    /*  MDN said to use .querySelectorAll to select all the radio buttons with the name searchType  */
     let radioButtons = document.querySelectorAll('input[name="searchType"]');
     radioButtons.forEach(radio => {
         radio.addEventListener("change", checkedLocationOrType);
     });
 
     let locationDropdown = document.querySelector("#parkLocation");
-    locationDropdown.addEventListener("change", handleLocationChange);
+    locationDropdown.addEventListener("change", getLocationData);
 
     let typeDropdown = document.querySelector("#parkType");
-    typeDropdown.addEventListener("change", handleTypeChange);
+    typeDropdown.addEventListener("change", getTypeData);
 };
 
 function checkedLocationOrType() {
@@ -71,12 +71,41 @@ function initLocationDropdown() {
     });
 }
 
-function handleLocationChange(event) {
-    console.log(`Location changed to: ${event.target.value}`);
-    // Add additional handling for location change here if needed
+function getLocationData(event) {
+    let selectedLocation = event.target.value;
+
+    let matchingStates = nationalParksArray.filter((park) => {
+        return park.State === selectedLocation;
+    });
+
+    let tableBody = document.querySelector("#dataBodyTable");
+    tableBody.innerHTML = "";
+
+    matchingStates.forEach((state) => {
+        buildTableRow(tableBody, state);
+    });
 }
 
-function handleTypeChange(event) {
-    console.log(`Type changed to: ${event.target.value}`);
-    // Add additional handling for type change here if needed
+function getTypeData(event) {
+    let selectedType = event.target.value;
+
+    let matchingParks = nationalParksArray.filter((park) => {
+        return park.LocationName.includes(selectedType);
+    });
+
+    let tableBody = document.querySelector("#dataBodyTable");
+    tableBody.innerHTML = "";
+
+    matchingParks.forEach((park) => {
+        buildTableRow(tableBody, park);
+    });
+}
+
+function buildTableRow(tableBody, data) {
+    let newRow = tableBody.insertRow();
+
+    for (let property in data) {
+        let newTd = newRow.insertCell();
+        newTd.innerText = data[property];
+    }
 }
