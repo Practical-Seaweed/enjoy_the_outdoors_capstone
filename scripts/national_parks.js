@@ -105,7 +105,16 @@ function buildTableRow(tableBody, data) {
     let newRow = tableBody.insertRow();
 
     for (let property in data) {
+
+        if (property === "Location" || property === "Visit") { // [ ||  <-- this means Or  ]
+            continue
+        }
+
+
+
         let newTd = newRow.insertCell();
         newTd.innerText = data[property];
     }
+    let newTd = newRow.insertCell();
+    newTd.innerText = (data.Visit) ? data.Visit : `N/A`
 }
