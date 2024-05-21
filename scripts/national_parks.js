@@ -78,6 +78,9 @@ function getLocationData(event) {
         return park.State === selectedLocation;
     });
 
+    let table = document.querySelector("#tableParkInfo");
+    table.style.display = "block";
+
     let tableBody = document.querySelector("#dataBodyTable");
     tableBody.innerHTML = "";
 
@@ -93,6 +96,9 @@ function getTypeData(event) {
         return park.LocationName.includes(selectedType);
     });
 
+    let table = document.querySelector("#tableParkInfo");
+    table.style.display = "block";
+
     let tableBody = document.querySelector("#dataBodyTable");
     tableBody.innerHTML = "";
 
@@ -106,15 +112,15 @@ function buildTableRow(tableBody, data) {
 
     for (let property in data) {
 
-        if (property === "Location" || property === "Visit") { // [ ||  <-- this means Or  ]
+        if(property === "Location" || property === "Visit"){ // [ ||  <-- this means Or  ]
             continue
         }
 
-
+        
 
         let newTd = newRow.insertCell();
         newTd.innerText = data[property];
     }
     let newTd = newRow.insertCell();
-    newTd.innerText = (data.Visit) ? data.Visit : `N/A`
+    newTd.innerText = (data.Visit) ? data.Visit: `N/A`
 }
