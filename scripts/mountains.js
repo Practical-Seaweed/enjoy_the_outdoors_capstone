@@ -11,11 +11,11 @@ window.onload = () => {
     initMountainsDropdown();
 
 
-    //log the mountainsArray to the console (scripts/data/mountainData.js)
+    // [ log the mountainsArray to the console (scripts/data/mountainData.js) ]
     console.log(mountainsArray)
 
     let mountainsDropdown = document.querySelector("#mountainsDropdown");
-    mountainsDropdown = document.addEventListener("change", inputMountainData);
+    mountainsDropdown.addEventListener("change", inputMountainData);
 
 
 }
@@ -41,12 +41,63 @@ function initMountainsDropdown() {
 
 
 // [ save for later ]
-// function inputMountainData(event){
+// [ need to get the mountainData in a div Card from bootstrap ]
+function inputMountainData(event) {
+    let selectedMountain = event.target.value;
 
-//     let selectedMountain = event.target.value;
+    let matchingMountain = mountainsArray.find(mountain => mountain.name === selectedMountain);
 
-//     let matchingMountains = mountainsArray.filter( (mountain) => {
-//         return mountain.name === selectedMountain;
-//     } );
+    let mountainInfo = document.querySelector("#mountainInfo");
+    mountainInfo.innerHTML = ""; // Clear previous content
 
-// }
+    let tableBody = document.querySelector("#mountainInfo");
+    tableBody.style.display = "block"; // Show the card
+    
+    tableBody.innerHTML = ""; // Clear existing content
+    
+
+
+    if (matchingMountain) {
+        let card = document.createElement("div");
+        card.classList.add("card", "bg-dark", "text-light", "mx-auto", "w-50");
+
+        let cardHeader = document.createElement("div");
+        cardHeader.classList.add("card-header", "fw-bold", "text-center");
+        cardHeader.textContent = matchingMountain.name;
+
+        let cardImg = document.createElement("img");
+        cardImg.classList.add("card-img-top");
+        cardImg.src = matchingMountain.image;
+        cardImg.alt = matchingMountain.name;
+
+        let cardBody = document.createElement("div");
+        cardBody.classList.add("card-body", "text-center");
+        let cardText = document.createElement("p");
+        cardText.classList.add("card-text");
+        cardText.textContent = matchingMountain.desc;
+        cardBody.appendChild(cardText);
+
+        let listGroup = document.createElement("ul");
+        listGroup.classList.add("list-group", "list-group-flush");
+
+        let listItem1 = document.createElement("li");
+        listItem1.classList.add("list-group-item", "list-group-item-dark", "fw-bold");
+        listItem1.textContent = `Elevation: ${matchingMountain.elevation} feet`;
+
+        let listItem2 = document.createElement("li");
+        listItem2.classList.add("list-group-item", "list-group-item-dark", "fw-bold");
+        listItem2.textContent = `Effort: ${matchingMountain.effort}`;
+
+        let listItem3 = document.createElement("li");
+        listItem3.classList.add("list-group-item", "list-group-item-dark", "fw-bold");
+        listItem3.textContent = `Lat: ${matchingMountain.coords.lat}   Lng: ${matchingMountain.coords.lng}`;
+        
+
+        listGroup.append(listItem1, listItem2, listItem3);
+
+        card.append(cardHeader, cardImg, cardBody, listGroup);
+        mountainInfo.appendChild(card);
+    }
+}
+
+
