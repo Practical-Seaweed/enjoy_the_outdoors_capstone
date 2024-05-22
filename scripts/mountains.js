@@ -59,16 +59,19 @@ function inputMountainData(event) {
 
     if (matchingMountain) {
         let card = document.createElement("div");
-        card.classList.add("card", "bg-dark", "text-light", "mx-auto", "w-50");
+        card.classList.add("card", "bg-dark", "text-light", "mx-auto", "w-25");
 
         let cardHeader = document.createElement("div");
         cardHeader.classList.add("card-header", "fw-bold", "text-center");
         cardHeader.textContent = matchingMountain.name;
 
         let cardImg = document.createElement("img");
-        cardImg.classList.add("card-img-top");
-        cardImg.src = matchingMountain.image;
+        cardImg.classList.add("card-img-top", "card-img-fit");
+        cardImg.src = `images/${matchingMountain.img}`;
         cardImg.alt = matchingMountain.name;
+
+        // [ card styling? cool, this adds style to my img, like css ]
+        cardImg.style.width = "100%";
 
         let cardBody = document.createElement("div");
         cardBody.classList.add("card-body", "text-center");
