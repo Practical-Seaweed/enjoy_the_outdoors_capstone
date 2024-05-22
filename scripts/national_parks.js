@@ -82,6 +82,15 @@ function getLocationData(event) {
     let tableBody = document.querySelector("#dataBodyTable");
     tableBody.innerHTML = "";
 
+    // [ this will hide my h3 element in national_parks.html when choosing something from a dropdown ]
+    let nothing = document.querySelector("#nothingInfo");
+
+    if(event.target.value == 0){
+        nothing.removeAttribute("style");
+    }else {
+        nothing.setAttribute("style","display: none");
+    }
+
     if(matchingStates.length === 0){
         table.style.display = "none";
         return;
@@ -99,6 +108,15 @@ function getLocationData(event) {
 function getTypeData(event) {
     let selectedType = event.target.value;
 
+    // [ this will hide my h3 element in national_parks.html when choosing something from a dropdown ]
+    let nothing = document.querySelector("#nothingInfo");
+
+    if(event.target.value == 0){
+        nothing.removeAttribute("style");
+    }else {
+        nothing.setAttribute("style","display: none");
+    }
+
     if (selectedType === ""){
         document.querySelector("#tableParkInfo").style.display = "none";
         return;
@@ -113,6 +131,8 @@ function getTypeData(event) {
 
     let tableBody = document.querySelector("#dataBodyTable");
     tableBody.innerHTML = "";
+
+    
 
     matchingParks.forEach((park) => {
         buildTableRow(tableBody, park);

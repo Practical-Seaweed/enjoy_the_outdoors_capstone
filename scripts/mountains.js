@@ -55,6 +55,14 @@ function inputMountainData(event) {
     
     tableBody.innerHTML = ""; // Clear existing content
     
+    // [ this will hide my h3 element in mountains.html when choosing something from a dropdown ]
+    let nothing = document.querySelector("#nothingInfo");
+
+    if(event.target.value == 0){
+        nothing.removeAttribute("style");
+    }else {
+        nothing.setAttribute("style","display: none");
+    }
 
 
     if (matchingMountain) {
