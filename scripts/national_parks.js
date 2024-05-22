@@ -79,18 +79,30 @@ function getLocationData(event) {
     });
 
     let table = document.querySelector("#tableParkInfo");
-    table.style.display = "block";
-
     let tableBody = document.querySelector("#dataBodyTable");
     tableBody.innerHTML = "";
 
-    matchingStates.forEach((state) => {
-        buildTableRow(tableBody, state);
-    });
+    if(matchingStates.length === 0){
+        table.style.display = "none";
+        return;
+    }else {
+        table.style.display = "block";
+        matchingStates.forEach((state) => {
+            buildTableRow(tableBody, state);
+        });
+    }
+
+
+
 }
 
 function getTypeData(event) {
     let selectedType = event.target.value;
+
+    if (selectedType === ""){
+        document.querySelector("#tableParkInfo").style.display = "none";
+        return;
+    }
 
     let matchingParks = nationalParksArray.filter((park) => {
         return park.LocationName.includes(selectedType);
