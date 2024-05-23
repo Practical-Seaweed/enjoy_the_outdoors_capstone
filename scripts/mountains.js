@@ -39,7 +39,6 @@ function initMountainsDropdown() {
 
 
 
-
 // [ save for later ]
 // [ need to get the mountainData in a div Card from bootstrap ]
 function inputMountainData(event) {
@@ -50,22 +49,42 @@ function inputMountainData(event) {
     let mountainInfo = document.querySelector("#mountainInfo");
     mountainInfo.innerHTML = ""; // Clear previous content
 
-    let tableBody = document.querySelector("#mountainInfo");
-    tableBody.style.display = "block"; // Show the card
-    
-    tableBody.innerHTML = ""; // Clear existing content
-    
-    // [ this will hide my h3 element in mountains.html when choosing something from a dropdown ]
-    let nothing = document.querySelector("#nothingInfo");
+    let mountainInfoDiv = document.querySelector("#mountainInfo");
+    mountainInfoDiv.style.display = "block"; // Show the card
 
-    if(event.target.value == 0){
-        nothing.removeAttribute("style");
-    }else {
-        nothing.setAttribute("style","display: none");
+    mountainInfoDiv.innerHTML = ""; // Clear existing content
+
+    // [ this will hide my h3 element in mountains.html when choosing something from a dropdown ]
+    let selectMountainInfo = document.querySelector("#selectMountainInfo");
+
+    if (event.target.value == 0) {
+        selectMountainInfo.removeAttribute("style");
+    } else {
+        selectMountainInfo.style.display = "none";
+    }
+
+    //function that can "fetch" the sunset/sunrise times
+    async function getSunsetForMountain(lat, lng) {
+        let response = await fetch(`http://api.sunrise-sunset.org/json?lat=${lat}&lng=${lng}&date=today`)
+        let data = await response.json()
+        return data
     }
 
 
     if (matchingMountain) {
+
+        //function that can "fetch" the sunset/sunrise times
+        async function getSunsetForMountain(lat, lng) {
+            let response = await fetch(`http://api.sunrise-sunset.org/json?lat=${lat}&lng=${lng}&date=today`)
+            let data = await response.json()
+            return data
+        }
+
+        //Using the function to fetch the sunset/sunrise times for a specific mountain 
+        getSunsetForMountain("44.320686", "-71.291742").then(sunsetData => {
+            console.log(sunsetData.results)
+        });
+
         let card = document.createElement("div");
         card.classList.add("card", "bg-dark", "text-light", "mx-auto", "w-25");
 
@@ -102,9 +121,12 @@ function inputMountainData(event) {
         let listItem3 = document.createElement("li");
         listItem3.classList.add("list-group-item", "list-group-item-dark", "fw-bold");
         listItem3.textContent = `Lat: ${matchingMountain.coords.lat}   Lng: ${matchingMountain.coords.lng}`;
-        
 
-        listGroup.append(listItem1, listItem2, listItem3);
+        let listItem4 = document.createElement("li");
+        listItem4.classList.add("list-group-item", "list-group-item-dark")
+
+
+        listGroup.append(listItem1, listItem2, listItem3, listItem4);
 
         card.append(cardHeader, cardImg, cardBody, listGroup);
         mountainInfo.appendChild(card);

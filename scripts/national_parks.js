@@ -91,12 +91,12 @@ function getLocationData(event) {
     tableBody.innerHTML = "";
 
     // [ this will hide my h3 element in national_parks.html when choosing something from a dropdown ]
-    let nothing = document.querySelector("#nothingInfo");
+    let nationalParkResults = document.querySelector("#nationalParkResults");
 
     if (event.target.value == 0) {
-        nothing.removeAttribute("style");
+        nationalParkResults.removeAttribute("style");
     } else {
-        nothing.setAttribute("style", "display: none");
+        nationalParkResults.style.display = "none";
     }
 
     if (matchingStates.length === 0) {
@@ -117,12 +117,12 @@ function getTypeData(event) {
     let selectedType = event.target.value;
 
     // [ this will hide my h3 element in national_parks.html when choosing something from a dropdown ]
-    let nothing = document.querySelector("#nothingInfo");
+    let nationalParkResults = document.querySelector("#nationalParkResults");
 
     if (event.target.value == 0) {
-        nothing.removeAttribute("style");
+        nationalParkResults.removeAttribute("style");
     } else {
-        nothing.setAttribute("style", "display: none");
+        nationalParkResults.style.display = "none";
     }
 
     if (selectedType === "") {
@@ -177,8 +177,8 @@ function showAll() {
 
     table.style.display = "block";
 
-    let nothing = document.querySelector("#nothingInfo");
-    nothing.style.display = "none";
+    let nationalParkResults = document.querySelector("#nationalParkResults");
+    nationalParkResults.style.display = "none";
 
     // this should hide the dropdowns of either Location/Type when they get chosen first
     let locationDropdown = document.querySelector("#parkLocation");

@@ -1,0 +1,56 @@
+/* this is our body from all html pages, changes all background color to #A4C639 */
+body {
+
+    background-color: #A4C639;
+
+}
+/* this is our carousel  */
+.carousel-inner {
+
+    height: 500px;
+
+}
+
+.carousel-item {
+
+    height: 500px;
+
+}
+/* our carousel image */
+.item, img {
+
+    height: 100% !important;
+    width: 100% !important;
+
+}
+/* this makes our h1 in national_parks.html and mountains.html text white */
+h1 {
+
+    color: white;
+
+}
+
+/* this is our dropdown from national parks, it hides them */
+#parkLocation {
+
+    display: none;
+
+}
+
+#parkType {
+
+    display: none;
+
+}
+/* this is our table from national parks, it hides our table */
+#tableParkInfo {
+
+    display: none;
+
+}
+/* this is our bootstrap card, hides */
+#mountainInfo {
+
+    display: none;
+
+}
