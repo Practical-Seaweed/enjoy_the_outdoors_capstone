@@ -63,27 +63,12 @@ function inputMountainData(event) {
         selectMountainInfo.style.display = "none";
     }
 
-    //function that can "fetch" the sunset/sunrise times
-    async function getSunsetForMountain(lat, lng) {
-        let response = await fetch(`http://api.sunrise-sunset.org/json?lat=${lat}&lng=${lng}&date=today`)
-        let data = await response.json()
-        return data
-    }
+
 
 
     if (matchingMountain) {
 
-        //function that can "fetch" the sunset/sunrise times
-        async function getSunsetForMountain(lat, lng) {
-            let response = await fetch(`http://api.sunrise-sunset.org/json?lat=${lat}&lng=${lng}&date=today`)
-            let data = await response.json()
-            return data
-        }
 
-        //Using the function to fetch the sunset/sunrise times for a specific mountain 
-        getSunsetForMountain("44.320686", "-71.291742").then(sunsetData => {
-            console.log(sunsetData.results)
-        });
 
         let card = document.createElement("div");
         card.classList.add("card", "bg-dark", "text-light", "mx-auto", "w-25");
@@ -111,7 +96,7 @@ function inputMountainData(event) {
         listGroup.classList.add("list-group", "list-group-flush");
 
         let listItem1 = document.createElement("li");
-        listItem1.classList.add("list-group-item", "list-group-item-dark", "fw-bold");
+        listItem1.classList.add("list-group-item", "list-group-item-dark", "fw-bold",);
         listItem1.textContent = `Elevation: ${matchingMountain.elevation} feet`;
 
         let listItem2 = document.createElement("li");
@@ -122,11 +107,30 @@ function inputMountainData(event) {
         listItem3.classList.add("list-group-item", "list-group-item-dark", "fw-bold");
         listItem3.textContent = `Lat: ${matchingMountain.coords.lat}   Lng: ${matchingMountain.coords.lng}`;
 
-        let listItem4 = document.createElement("li");
-        listItem4.classList.add("list-group-item", "list-group-item-dark")
 
 
-        listGroup.append(listItem1, listItem2, listItem3, listItem4);
+
+        listGroup.append(listItem1, listItem2, listItem3);
+
+
+        //function that can "fetch" the sunset/sunrise times
+        async function getSunsetForMountain(lat, lng) {
+            let response = await fetch(`http://api.sunrise-sunset.org/json?lat=${lat}&lng=${lng}&date=today`)
+            let data = await response.json()
+            return data
+        }
+
+        //Using the function to fetch the sunset/sunrise times for a specific mountain 
+        getSunsetForMountain(matchingMountain.coords.lat, matchingMountain.coords.lng).then(sunsetData => {
+            let listItem4 = document.createElement("li");
+            listItem4.classList.add("list-group-item", "list-group-item-dark", "fw-bold");
+            listItem4.textContent = `
+            Sunrise: ${sunsetData.results.sunrise} 
+            Sunset: ${sunsetData.results.sunset} CST
+            `;
+            
+            listGroup.appendChild(listItem4); 
+        });
 
         card.append(cardHeader, cardImg, cardBody, listGroup);
         mountainInfo.appendChild(card);
