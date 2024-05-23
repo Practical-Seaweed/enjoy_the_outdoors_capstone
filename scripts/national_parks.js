@@ -44,6 +44,10 @@ function checkedLocationOrType() {
             showAll();
         }
     }
+
+    // Hide the table when selecting a different radio button after Show All
+    let table = document.querySelector("#tableParkInfo");
+    table.style.display = "none";
 }
 function initTypeDropdown() {
     let parkType = document.querySelector("#parkType");
