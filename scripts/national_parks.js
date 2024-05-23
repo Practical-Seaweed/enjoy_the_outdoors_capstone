@@ -3,11 +3,15 @@
 window.onload = () => {
     initLocationDropdown();
     initTypeDropdown();
-    /*  MDN said to use .querySelectorAll to select all the radio buttons with the name searchType  */
+
     let radioButtons = document.querySelectorAll('input[name="searchType"]');
     radioButtons.forEach(radio => {
         radio.addEventListener("change", checkedLocationOrType);
     });
+
+    let showAllRadioButton = document.querySelector(`input[name="showAll"]`);
+    // Update the event listener to use the correct function name
+    showAllRadioButton.addEventListener("change", showAll);
 
     let locationDropdown = document.querySelector("#parkLocation");
     locationDropdown.addEventListener("change", getLocationData);
@@ -26,17 +30,21 @@ function checkedLocationOrType() {
     let radioChecks = document.querySelectorAll('input[name="searchType"]');
     let checked = Array.from(radioChecks).find(radio => radio.checked);
 
+    let showAll = document.querySelector('input[name="showAll"]');
+
     if (checked) {
         if (checked.value === "location") {
             locationDropdown.style.display = "block";
             initLocationDropdown();
+            showAll.checked = false; // Uncheck Show All radio button
         } else if (checked.value === "type") {
             typeDropdown.style.display = "block";
             initTypeDropdown();
+            showAll.checked = false; // Uncheck Show All radio button
+            showAll();
         }
     }
 }
-
 function initTypeDropdown() {
     let parkType = document.querySelector("#parkType");
     parkType.innerHTML = ''; // Clear existing options
@@ -85,16 +93,16 @@ function getLocationData(event) {
     // [ this will hide my h3 element in national_parks.html when choosing something from a dropdown ]
     let nothing = document.querySelector("#nothingInfo");
 
-    if(event.target.value == 0){
+    if (event.target.value == 0) {
         nothing.removeAttribute("style");
-    }else {
-        nothing.setAttribute("style","display: none");
+    } else {
+        nothing.setAttribute("style", "display: none");
     }
 
-    if(matchingStates.length === 0){
+    if (matchingStates.length === 0) {
         table.style.display = "none";
         return;
-    }else {
+    } else {
         table.style.display = "block";
         matchingStates.forEach((state) => {
             buildTableRow(tableBody, state);
@@ -111,13 +119,13 @@ function getTypeData(event) {
     // [ this will hide my h3 element in national_parks.html when choosing something from a dropdown ]
     let nothing = document.querySelector("#nothingInfo");
 
-    if(event.target.value == 0){
+    if (event.target.value == 0) {
         nothing.removeAttribute("style");
-    }else {
-        nothing.setAttribute("style","display: none");
+    } else {
+        nothing.setAttribute("style", "display: none");
     }
 
-    if (selectedType === ""){
+    if (selectedType === "") {
         document.querySelector("#tableParkInfo").style.display = "none";
         return;
     }
@@ -132,7 +140,7 @@ function getTypeData(event) {
     let tableBody = document.querySelector("#dataBodyTable");
     tableBody.innerHTML = "";
 
-    
+
 
     matchingParks.forEach((park) => {
         buildTableRow(tableBody, park);
@@ -144,15 +152,42 @@ function buildTableRow(tableBody, data) {
 
     for (let property in data) {
 
-        if(property === "Location" || property === "Visit"){ // [ ||  <-- this means Or  ]
+        if (property === "Location" || property === "Visit") { // [ ||  <-- this means Or  ]
             continue
         }
 
-        
+
 
         let newTd = newRow.insertCell();
         newTd.innerText = data[property];
     }
     let newTd = newRow.insertCell();
-    newTd.innerText = (data.Visit) ? data.Visit: `N/A`
+    newTd.innerText = (data.Visit) ? data.Visit : `N/A`
+}
+
+
+function showAll() {
+    let table = document.querySelector("#tableParkInfo");
+    let tableBody = document.querySelector("#dataBodyTable");
+    tableBody.innerHTML = "";
+
+    nationalParksArray.forEach((park) => {
+        buildTableRow(tableBody, park);
+    });
+
+    table.style.display = "block";
+
+    let nothing = document.querySelector("#nothingInfo");
+    nothing.style.display = "none";
+
+    // this should hide the dropdowns of either Location/Type when they get chosen first
+    let locationDropdown = document.querySelector("#parkLocation");
+    let typeDropdown = document.querySelector("#parkType");
+    locationDropdown.style.display = "none";
+    typeDropdown.style.display = "none";
+
+    let radioButtons = document.querySelectorAll('input[name="searchType"]');
+    radioButtons.forEach(radio => {
+        radio.checked = false;
+    });
 }
